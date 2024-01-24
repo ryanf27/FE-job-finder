@@ -7,10 +7,13 @@ interface SearcProps {
   searchData: (data: { name: string; value: string }[]) => void;
 }
 
+interface SearchInput {
+  name: string;
+  value: string;
+}
+
 const SearchBar: React.FC<SearcProps> = ({ searchData }) => {
-  const [searchInputs, setSearchInputs] = useState<
-    { name: string; value: string }[]
-  >([
+  const [searchInputs, setSearchInputs] = useState<SearchInput[]>([
     { name: "title", value: "" },
     { name: "company", value: "" },
     { name: "location", value: "" },
@@ -18,39 +21,35 @@ const SearchBar: React.FC<SearcProps> = ({ searchData }) => {
 
   const onChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
-    setSearchInputs((prevState) => {
-      const updateState = prevState.map((input) => {
-        if (input.name == name) {
-          input.value = value;
-        }
-        return input;
-      });
-      return updateState;
-    });
+    setSearchInputs((prevState) =>
+      prevState.map((input) =>
+        input.name === name ? { ...input, value } : input
+      )
+    );
   };
 
   const clearInputJob = () => {
-    setSearchInputs((prevState) => [
-      ...prevState.slice(0, 1),
-      { ...prevState[0], value: "" },
-      ...prevState.slice(1),
-    ]);
+    setSearchInputs((prevState: SearchInput[]) =>
+      prevState.map((input: SearchInput) =>
+        input.name === "title" ? { ...input, value: "" } : input
+      )
+    );
   };
 
   const clearInputCompany = () => {
-    setSearchInputs((prevState) => [
-      ...prevState.slice(0, 2),
-      { ...prevState[1], value: "" },
-      ...prevState.slice(2),
-    ]);
+    setSearchInputs((prevState: SearchInput[]) =>
+      prevState.map((input: SearchInput) =>
+        input.name === "company" ? { ...input, value: "" } : input
+      )
+    );
   };
 
   const clearInputLocation = () => {
-    setSearchInputs((prevState) => [
-      ...prevState.slice(0, 3),
-      { ...prevState[2], value: "" },
-      ...prevState.slice(3),
-    ]);
+    setSearchInputs((prevState: SearchInput[]) =>
+      prevState.map((input: SearchInput) =>
+        input.name === "location" ? { ...input, value: "" } : input
+      )
+    );
   };
 
   const onSubmitHandler = (e: React.MouseEvent<HTMLButtonElement>): void => {
