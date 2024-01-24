@@ -1,26 +1,16 @@
-import React, { useState } from "react";
-import Navbar from "./components/Navbar";
-import SearchBar from "./components/SearchBar";
-import data from "./data";
+import React from "react";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Homepages from "./pages/Homepages";
 
 interface AppProps {}
 
 const App: React.FC<AppProps> = () => {
-  const [filteredData, setFilteredData] = useState(data);
-
-  const searchData = (inputData) => {
-    const newData = data.filter((d) => {
-      return inputData.every((el) => {
-        return d[el.name].toLowerCase().includes(el.value.toLowerCase());
-      });
-    });
-    setFilteredData(newData);
-  };
   return (
-    <div className=" w-full flex flex-col items-center">
-      <Navbar />
-      <SearchBar searchData={searchData} />
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Homepages />} />
+      </Routes>
+    </BrowserRouter>
   );
 };
 

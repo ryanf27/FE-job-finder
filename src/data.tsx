@@ -1,6 +1,10 @@
 import logo1 from "./assets/react.svg";
 
-const Data = [
+interface JobData {
+  [key: string]: string | number;
+}
+
+const Data: JobData[] = [
   {
     id: 1,
     image: logo1,

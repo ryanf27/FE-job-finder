@@ -20,7 +20,7 @@ const SearchBar: React.FC<SearcProps> = ({ searchData }) => {
     const { name, value } = event.target;
     setSearchInputs((prevState) => {
       const updateState = prevState.map((input) => {
-        if ((input.name = name)) {
+        if (input.name == name) {
           input.value = value;
         }
         return input;
@@ -71,14 +71,11 @@ const SearchBar: React.FC<SearcProps> = ({ searchData }) => {
   };
 
   return (
-    <div className="flex items-center justify-center mt-20 bg-gray-200 w-4/5">
-      <form
-        action=""
-        className="flex flex-col w-full max-w-md px-4 py-4 bg-white rounded-lg shadow-md"
-      >
-        <div className="w-1/3 flex items-center space-x-2">
-          <BsSearch className="w-4 h-4 text-gray-400" />
-          {/* job */}
+    <div className="flex items-center justify-center mt-20 bg-blue-100 w-4/5 rounded-lg shadow-md">
+      <form action="" className="flex flex-row w-full p-12 ">
+        {/* job input field*/}
+        <div className="w-1/3 flex items-center space-x-1 mr-4">
+          <BsSearch className="w-7 h-7 text-gray-400" />
           <input
             name="title"
             type="text"
@@ -89,39 +86,39 @@ const SearchBar: React.FC<SearcProps> = ({ searchData }) => {
           />
           <AiOutlineCloseCircle
             onClick={clearInputJob}
-            className="w-4 h-4 text-gray-400"
+            className="w-7 h-7 text-gray-400"
           />
         </div>
-        {/* company */}
-        <div className="w-1/3 flex items-center space-x-2">
-          <BsHouseDoor className="w-4 h-4 text-gray-400" />
+        {/* company input field*/}
+        <div className="w-1/3 flex items-center space-x-1 mr-4">
+          <BsHouseDoor className="w-7 h-7 text-gray-400" />
           <input
             name="company"
             type="text"
-            className="inputField"
+            className="w-full rounded-md px-3 py-2 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
             placeholder="Search By Company..."
             value={searchInputs[1].value}
             onChange={onChangeHandler}
           />
           <AiOutlineCloseCircle
             onClick={clearInputCompany}
-            className="w-4 h-4 text-gray-400 hover:text-blue-500"
+            className="w-7 h-7 text-gray-400 hover:text-blue-500"
           />
         </div>
         {/* location */}
-        <div className="w-1/3 flex items-center space-x-2">
-          <CiLocationOn className="w-4 h-4 text-gray-400" />
+        <div className="w-1/3 flex items-center space-x-1 mr-4">
+          <CiLocationOn className="w-7 h-7 text-gray-400" />
           <input
             name="location"
             type="text"
-            className="inputField"
+            className="w-full rounded-md px-3 py-2 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
             placeholder="Search By Location..."
             value={searchInputs[2].value}
             onChange={onChangeHandler}
           />
           <AiOutlineCloseCircle
             onClick={clearInputLocation}
-            className="w-4 h-4 text-gray-400 hover:text-blue-500"
+            className="w-7 h-7 text-gray-400 hover:text-blue-500"
           />
         </div>
 
