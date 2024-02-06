@@ -1,11 +1,11 @@
 import React from "react";
-import { DataItem } from "../pages/Homepages";
+import { JobData } from "../pages/Homepages";
 
 // react icons
 import { BiTimeFive } from "react-icons/bi";
 
 interface JobsListProps {
-  filteredData: DataItem[] | undefined;
+  filteredData: JobData[] | undefined;
 }
 
 const JobsList: React.FC<JobsListProps> = ({ filteredData }) => {

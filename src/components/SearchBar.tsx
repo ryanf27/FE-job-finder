@@ -4,7 +4,7 @@ import { AiOutlineCloseCircle } from "react-icons/ai";
 import { CiLocationOn } from "react-icons/ci";
 
 interface SearcProps {
-  searchData: (data: { name: string; value: string }[]) => void;
+  handleSearchFilters: (data: { name: string; value: string }[]) => void;
 }
 
 interface SearchInput {
@@ -12,7 +12,7 @@ interface SearchInput {
   value: string;
 }
 
-const SearchBar: React.FC<SearcProps> = ({ searchData }) => {
+const SearchBar: React.FC<SearcProps> = ({ handleSearchFilters }) => {
   const [searchInputs, setSearchInputs] = useState<SearchInput[]>([
     { name: "title", value: "" },
     { name: "company", value: "" },
@@ -63,7 +63,7 @@ const SearchBar: React.FC<SearcProps> = ({ searchData }) => {
         alert("Please enter input data");
         return;
       }
-      searchData(filteredData);
+      handleSearchFilters(filteredData);
     } catch (error) {
       console.error(`error occured ${e}`);
     }

@@ -3,25 +3,24 @@ import Navbar from "../components/Navbar";
 import SearchBar from "../components/SearchBar";
 import JobsList from "../components/JobsList";
 import data from "../data";
+import QuickSearch from "../components/QuickSearch";
 
 interface HomeProps {}
 
-export interface DataItem {
+export interface JobData {
   [key: string]: string | number;
 }
 
 interface SearchElement {
-  name: keyof DataItem;
+  name: keyof JobData;
   value: string;
 }
 
 const Homepages: React.FC<HomeProps> = () => {
-  const [filteredData, setFilteredData] = useState<DataItem[] | undefined>(
-    data
-  );
+  const [filteredData, setFilteredData] = useState<JobData[] | undefined>(data);
 
-  const searchData = (inputData: SearchElement[]): void => {
-    const newData: DataItem[] = data.filter((d: DataItem) => {
+  const handleSearchFilters = (inputData: SearchElement[]): void => {
+    const newData: JobData[] = data.filter((d: JobData) => {
       return inputData.every((el: SearchElement) => {
         return d[el.name]
           .toString()
@@ -32,11 +31,24 @@ const Homepages: React.FC<HomeProps> = () => {
     setFilteredData(newData);
   };
 
+  const handleQuickSearchClick = (searchValues: SearchElement[]): void => {
+    const newData: JobData[] = data.filter((d: JobData) =>
+      searchValues.every((searchValue) =>
+        d[searchValue.name]
+          .toString()
+          .toLowerCase()
+          .includes(searchValue.value.toLowerCase())
+      )
+    );
+    setFilteredData(newData);
+  };
+
   return (
     <div className="flex flex-col items-center">
       <Navbar />
-      <SearchBar searchData={searchData} />
+      <SearchBar handleSearchFilters={handleSearchFilters} />
       <JobsList filteredData={filteredData} />
+      <QuickSearch onSearchValueClick={handleQuickSearchClick} />
     </div>
   );
 };
