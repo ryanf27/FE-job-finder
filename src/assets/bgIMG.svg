@@ -1,12 +1,12 @@
 <svg id="visual" viewBox="0 0 900 600" width="900" height="600" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1">
   <defs>
     <linearGradient id="gradient1" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#dbebfe;stop-opacity:1" />
-      <stop offset="100%" style="stop-color:#62a8f8;stop-opacity:1" />
+      <stop offset="0%" style="stop-color:#EDF2FB;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#C1D3FE;stop-opacity:1" />
     </linearGradient>
     <linearGradient id="sameColorGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%" style="stop-color:#62a8f8;stop-opacity:1" />
-      <stop offset="100%" style="stop-color:#2b6ae9;stop-opacity:1" />
+      <stop offset="0%" style="stop-color:#C1D3FE;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#C1D3FE;stop-opacity:1" />
     </linearGradient>
   </defs>
   <rect x="0" y="0" width="900" height="600" fill="url(#gradient1)"></rect>

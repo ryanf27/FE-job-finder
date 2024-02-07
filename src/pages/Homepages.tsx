@@ -47,7 +47,7 @@ const Homepages: React.FC<HomeProps> = () => {
   };
 
   return (
-    <div className="flex flex-col items-center  bg-gray-100 font-sans">
+    <div className="flex flex-col items-center  bg-gray-100 font-sans scroll-smooth">
       <Navbar />
       <HeroSection />
       <SearchBar handleSearchFilters={handleSearchFilters} />
