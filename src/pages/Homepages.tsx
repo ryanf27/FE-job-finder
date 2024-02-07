@@ -4,6 +4,9 @@ import SearchBar from "../components/SearchBar";
 import JobsList from "../components/JobsList";
 import data from "../data";
 import QuickSearch from "../components/QuickSearch";
+import ValueSection from "../components/ValueSection";
+import Footer from "../components/Footer";
+import HeroSection from "../components/HeroSection";
 
 interface HomeProps {}
 
@@ -44,11 +47,14 @@ const Homepages: React.FC<HomeProps> = () => {
   };
 
   return (
-    <div className="flex flex-col items-center">
+    <div className="flex flex-col items-center  bg-gray-100 font-sans">
       <Navbar />
+      <HeroSection />
       <SearchBar handleSearchFilters={handleSearchFilters} />
       <JobsList filteredData={filteredData} />
       <QuickSearch onSearchValueClick={handleQuickSearchClick} />
+      <ValueSection />
+      <Footer />
     </div>
   );
 };

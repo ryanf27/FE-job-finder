@@ -70,8 +70,8 @@ const SearchBar: React.FC<SearcProps> = ({ handleSearchFilters }) => {
   };
 
   return (
-    <div className="flex items-center justify-center mt-20 bg-blue-100 w-4/5 rounded-lg shadow-md">
-      <form action="" className="flex flex-row w-full p-12 ">
+    <div className="flex items-center justify-center bg-blue-50 w-4/5 rounded-lg shadow-md -translate-y-16">
+      <form action="" className="flex flex-row w-full p-16 ">
         {/* job input field*/}
         <div className="w-1/3 flex items-center space-x-1 mr-4">
           <BsSearch className="w-7 h-7 text-gray-400" />

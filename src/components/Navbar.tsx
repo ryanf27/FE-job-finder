@@ -4,27 +4,23 @@ interface NavbarProps {}
 
 const Navbar: React.FC<NavbarProps> = () => {
   return (
-    <header className="container bg-gray-800 text-white py-4 px-6 flex items-center justify-between">
+    <header className="fixed top-0 w-full z-50 bg-transparent shadow-md text-black p-4 flex items-center justify-between">
       <strong className="text-2xl font-bold">Job Finder</strong>
-      <nav className="flex space-x-4">
-        <a href="#" className="hover:text-blue-500">
-          Jobs
-        </a>
-        <a href="#" className="hover:text-blue-500">
-          Companies
-        </a>
-        <a href="#" className="hover:text-blue-500">
-          About
-        </a>
-        <a href="#" className="hover:text-blue-500">
-          Contact
-        </a>
-        <a href="#" className="hover:text-blue-500">
-          Login
-        </a>
-        <a href="#" className="hover:text-blue-500">
-          Register
-        </a>
+      <nav>
+        <ul className="flex gap-4 m-0 p-0">
+          {["Jobs", "Companies", "About", "Contact", "Login", "Register"].map(
+            (item, index) => (
+              <li
+                key={index}
+                className="relative cursor-pointer hover:text-blue-50 text-lg"
+              >
+                <a href="#" className="hover:text-blue-50">
+                  {item}
+                </a>
+              </li>
+            )
+          )}
+        </ul>
       </nav>
     </header>
   );
