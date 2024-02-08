@@ -21,7 +21,7 @@ const Navbar: React.FC<NavbarProps> = () => {
         isScrolled
           ? "bg-sky-50 shadow-md text-black transition-colors duration-300"
           : "bg-transparent text-black"
-      } p-4 flex items-center justify-around align-middle`}
+      } p-4 flex items-center justify-around `}
     >
       <strong className="text-2xl font-bold hover:text-blue-500">
         Job Finder

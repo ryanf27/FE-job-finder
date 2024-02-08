@@ -7,6 +7,7 @@ import QuickSearch from "../components/QuickSearch";
 import ValueSection from "../components/ValueSection";
 import Footer from "../components/Footer";
 import HeroSection from "../components/HeroSection";
+import Companies from "../components/Companies";
 
 interface HomeProps {}
 
@@ -53,6 +54,7 @@ const Homepages: React.FC<HomeProps> = () => {
       <SearchBar handleSearchFilters={handleSearchFilters} />
       <JobsList filteredData={filteredData} />
       <QuickSearch onSearchValueClick={handleQuickSearchClick} />
+      <Companies />
       <ValueSection />
       <Footer />
     </div>

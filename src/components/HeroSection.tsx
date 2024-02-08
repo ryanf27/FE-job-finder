@@ -12,7 +12,7 @@ const HeroSection: React.FC<HeroProps> = () => {
     >
       <div className="relative top-48 text-black text-center px-10 w-2/3">
         <h1 className="tracking-wide text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
-          Your Dream Job Awaits: Welcome to Job Finder
+          Your Dream Job Awaits Welcome to Job Finder
         </h1>
         <p className="text-xl md:text-2xl mb-8 mx-auto max-w-4xl">
           Discover hidden opportunities. Land your dream role. Craft your

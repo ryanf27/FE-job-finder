@@ -22,7 +22,7 @@ const JobsList: React.FC<JobsListProps> = ({ filteredData }) => {
   const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
 
   return (
-    <div id="Jobs" className="container">
+    <div className="container mb-12">
       {currentItems?.map(
         ({ id, image, title, time, location, desc, company }) => (
           <div

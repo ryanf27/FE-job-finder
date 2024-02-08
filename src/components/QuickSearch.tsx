@@ -22,32 +22,27 @@ const QuickSearch: React.FC<QuickSearchProps> = ({ onSearchValueClick }) => {
     },
   ];
 
-  const handleQuickSearchBtn = (option: string, category: string) => {
-    let searchElement: SearchElement;
-
-    if (category === "Job Title") {
-      searchElement = { name: "title", value: option };
-    } else if (category === "Location") {
-      searchElement = { name: "location", value: option };
-    } else {
-      console.error("Unknown category");
-      return;
-    }
+  const handleQuickSearchBtn = (value: string, category: string) => {
+    const searchElement: SearchElement = {
+      name: category === "Job Title" ? "title" : "location",
+      value,
+    };
     onSearchValueClick([searchElement]);
   };
 
   return (
-    <div className="container mx-auto p-6">
-      <h2 className="text-2xl font-semibold my-8">Quick Search</h2>
-
+    <div className="container w-3/4 p-2">
+      <h2 className="text-3xl font-semibold my-4">Popular Job Categories</h2>
       {categories.map((category, index) => (
-        <div key={index} className="flex flex-row mb-4">
-          <h3 className="font-medium basis-1/12">{category.title}</h3>
-          <ul className="flex flex-wrap ml-4">
+        <div key={index} className="mb-2">
+          <h3 className="font-medium text-lg mb-4 text-blue-500">
+            {category.title}
+          </h3>
+          <ul className="flex flex-wrap">
             {category.options.map((option, optionIndex) => (
               <li
                 key={optionIndex}
-                className="mr-4 cursor-pointer text-blue-500"
+                className="mr-4 mb-2 cursor-pointer text-gray-700 hover:text-blue-50 border border-blue-500 hover:bg-blue-500  rounded-full px-4 py-1 transition-colors duration-300"
                 onClick={() => handleQuickSearchBtn(option, category.title)}
               >
                 {option}
