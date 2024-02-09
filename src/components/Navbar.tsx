@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
-
+import { Link, useLocation } from "react-router-dom";
 interface NavbarProps {}
 
 const Navbar: React.FC<NavbarProps> = () => {
   const [isScrolled, setIsScrolled] = useState(false);
+  const location = useLocation();
+  const isHomePage = location.pathname === "/";
 
   useEffect(() => {
     const handleScroll = () => {
@@ -24,14 +26,14 @@ const Navbar: React.FC<NavbarProps> = () => {
       } p-4 flex items-center justify-around `}
     >
       <strong className="text-2xl font-bold hover:text-blue-500">
-        Job Finder
+        <Link to="/">Job Finder</Link>
       </strong>
       <nav>
         <ul className="flex gap-4 m-0 p-0">
           {["Jobs", "Companies", "About", "Contact"].map((item, index) => (
             <li key={index} className="relative cursor-pointer text-lg">
               <a
-                href={`#${item}`}
+                href={isHomePage ? `#${item}` : `/#${item}`}
                 className={`${
                   isScrolled ? "hover:text-blue-500" : "hover:text-white"
                 }`}
@@ -44,10 +46,10 @@ const Navbar: React.FC<NavbarProps> = () => {
       </nav>
       <div className="relative">
         <button className="bg-blue-50 py-1 px-3 text-lg hover:bg-blue-100  transition-colors duration-300 rounded-full mr-2">
-          Login
+          <Link to="/login">Login</Link>
         </button>
         <button className="bg-blue-500 py-1 px-3 text-lg hover:bg-blue-700 text-white transition-colors duration-300 rounded-full">
-          Register
+          <Link to="/register">Register</Link>
         </button>
       </div>
     </header>
