@@ -1,13 +1,14 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 import SearchBar from "../components/SearchBar";
 import JobsList from "../components/JobsList";
-import data from "../data";
+// import data from "../data";
 import QuickSearch from "../components/QuickSearch";
 import ValueSection from "../components/ValueSection";
 import Footer from "../components/Footer";
 import HeroSection from "../components/HeroSection";
 import Companies from "../components/Companies";
+import { fetchJobs } from "../utility/api";
 
 interface HomeProps {}
 
@@ -21,10 +22,27 @@ interface SearchElement {
 }
 
 const Homepages: React.FC<HomeProps> = () => {
-  const [filteredData, setFilteredData] = useState<JobData[] | undefined>(data);
+  const [jobs, setJobs] = useState<JobData[]>([]);
+
+  const [filteredData, setFilteredData] = useState<JobData[] | undefined>(
+    undefined
+  );
+
+  useEffect(() => {
+    const loadJobs = async () => {
+      try {
+        const response = await fetchJobs();
+        setJobs(response.data);
+        setFilteredData(response.data);
+      } catch (err) {
+        console.error("failed to ferch jobs:", err);
+      }
+    };
+    loadJobs();
+  }, []);
 
   const handleSearchFilters = (inputData: SearchElement[]): void => {
-    const newData: JobData[] = data.filter((d: JobData) => {
+    const newData: JobData[] = jobs.filter((d: JobData) => {
       return inputData.every((el: SearchElement) => {
         return d[el.name]
           .toString()
@@ -36,7 +54,7 @@ const Homepages: React.FC<HomeProps> = () => {
   };
 
   const handleQuickSearchClick = (searchValues: SearchElement[]): void => {
-    const newData: JobData[] = data.filter((d: JobData) =>
+    const newData: JobData[] = jobs.filter((d: JobData) =>
       searchValues.every((searchValue) =>
         d[searchValue.name]
           .toString()
