@@ -1,13 +1,14 @@
 import React, { useState } from "react";
 import Navbar from "../components/Navbar";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 interface FormData {
   username: string;
   email: string;
   password: string;
   confirmPassword: string;
-  name: string;
-  jobRole: string;
+  user_type: string;
 }
 
 interface Errors {
@@ -15,8 +16,7 @@ interface Errors {
   email?: string;
   password?: string;
   confirmPassword?: string;
-  name?: string;
-  jobRole?: string;
+  user_type?: string;
 }
 
 const Register: React.FC = () => {
@@ -25,15 +25,18 @@ const Register: React.FC = () => {
     email: "",
     password: "",
     confirmPassword: "",
-    name: "",
-    jobRole: "",
+    user_type: "",
   });
 
   const [errors, setErrors] = useState<Errors>({});
   const [showPassword, setShowPassword] = useState(false);
   const [passwordStrength, setPasswordStrength] = useState("");
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const navigate = useNavigate();
+
+  const handleChange = (
+    event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
     const { name, value } = event.target;
     setFormData({ ...formData, [name]: value });
     setErrors({ ...errors, [name]: undefined });
@@ -41,7 +44,7 @@ const Register: React.FC = () => {
     if (name === "password") {
       if (value.length < 8) {
         setPasswordStrength("Weak");
-      } else if (value.length >= 8 && value.length < 12) {
+      } else if (value.length >= 8 && value.length < 10) {
         setPasswordStrength("Medium");
       } else {
         setPasswordStrength("Strong");
@@ -49,40 +52,35 @@ const Register: React.FC = () => {
     }
   };
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const newErrors = validateForm(formData);
     setErrors(newErrors);
 
     if (Object.keys(newErrors).length === 0) {
-      // Handle registration API call here
-      console.log("Submitted Form Data:", formData);
+      try {
+        const response = await axios.post(
+          `http://localhost:8000/api/users`,
+          formData
+        );
+        navigate("/login");
+        console.log("Registration Success", response);
+      } catch (error) {
+        console.log("Submitted Form Data:", formData);
+      }
     }
   };
 
   const validateForm = (data: FormData): Errors => {
-    const errors: Errors = {};
-
-    if (!data.username) {
-      errors.username = "Username is required";
-    }
-    if (!data.email) {
-      errors.email = "Email is required";
-    } // Add more robust email validation if needed
-    if (!data.password) {
-      errors.password = "Password is required";
-    }
-    if (data.password !== data.confirmPassword) {
-      errors.confirmPassword = "Passwords do not match";
-    }
-    if (!data.name) {
-      errors.name = "Name is required";
-    }
-    if (!data.jobRole) {
-      errors.jobRole = "Job role is required";
-    }
-
-    return errors;
+    const newErrors: Errors = {};
+    if (!data.username) newErrors.username = "Username is required";
+    if (!data.email) newErrors.email = "Email is required";
+    if (!data.password) newErrors.password = "Password is required";
+    if (data.password !== data.confirmPassword)
+      newErrors.confirmPassword = "Passwords do not match";
+    if (!data.user_type)
+      newErrors.user_type = "Selecting a user type is required";
+    return newErrors;
   };
 
   return (
@@ -105,14 +103,29 @@ const Register: React.FC = () => {
                 value={formData.username}
                 onChange={handleChange}
                 className="w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring focus:ring-blue-200"
-                placeholder="Choose a username" // Added placeholder
+                placeholder="Choose a username"
               />
               {errors.username && (
                 <p className="text-red-500 text-sm mt-1">{errors.username}</p>
               )}
             </div>
-
-            {/* ... Other Input Fields (email, name, jobRole - similar with placeholders) */}
+            <div className="mb-4">
+              <label htmlFor="username" className="block text-gray-700 mb-2">
+                Email
+              </label>
+              <input
+                type="text"
+                id="email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                className="w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring focus:ring-blue-200"
+                placeholder="Choose a username"
+              />
+              {errors.email && (
+                <p className="text-red-500 text-sm mt-1">{errors.email}</p>
+              )}
+            </div>
 
             <div className="mb-4">
               <label htmlFor="password" className="block text-gray-700 mb-2">
@@ -149,6 +162,47 @@ const Register: React.FC = () => {
               )}
               {errors.password && (
                 <p className="text-red-500 text-sm mt-1">{errors.password}</p>
+              )}
+            </div>
+
+            <div className="mb-4">
+              <label
+                htmlFor="confirmPassword"
+                className="block text-gray-700 mb-2"
+              >
+                Confirm Password
+              </label>
+              <input
+                type="password"
+                id="confirmPassword"
+                name="confirmPassword"
+                value={formData.confirmPassword}
+                onChange={handleChange}
+                className="w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring focus:ring-blue-200"
+                placeholder="Confirm your password"
+              />
+              {errors.confirmPassword && (
+                <p className="text-red-500 text-sm mt-1">
+                  {errors.confirmPassword}
+                </p>
+              )}
+            </div>
+            <div className="mb-4">
+              <label htmlFor="user_type" className="block text-gray-700 mb-2">
+                User Type
+              </label>
+              <select
+                id="user_type"
+                name="user_type"
+                value={formData.user_type}
+                onChange={handleChange}
+                className="w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring focus:ring-blue-200"
+              >
+                <option value="job_seeker">Job Seeker</option>
+                <option value="employer">Employer</option>
+              </select>
+              {errors.user_type && (
+                <p className="text-red-500 text-sm mt-1">{errors.user_type}</p>
               )}
             </div>
             <button
